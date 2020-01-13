@@ -19,13 +19,13 @@ def test_guest_should_see_login_link(browser):
     page.should_be_login_link()
 
 #3
-#def test_guest_should_go_correct_login_url(browser):
-#    link = "http://selenium1py.pythonanywhere.com/"
-#    page1 = MainPage(browser, link)
-#    page1.open()
-#    page1.go_to_login_page()
-#    page2 = LoginPage(browser, link)
-#    page2.should_be_login_url()
+def test_guest_should_go_correct_login_url(browser):
+    link = "http://selenium1py.pythonanywhere.com/"
+    page1 = MainPage(browser, link)
+    page1.open()
+    page1.go_to_login_page()
+    page2 = LoginPage(browser, link)
+    page2.should_be_login_url()
 
 #4
 def test_guest_should_see_login_form(browser):
@@ -33,3 +33,13 @@ def test_guest_should_see_login_form(browser):
     page = LoginPage(browser, link)
     page.open()
     page.should_be_login_page()
+
+#5
+def test_guest_can_go_to_login_page(browser):
+    link = "http://selenium1py.pythonanywhere.com"
+    page = MainPage(browser, link)
+    page.open()
+    page.go_to_login_page()
+    login_page = LoginPage(browser, browser.current_url)
+    login_page.should_be_login_page()
+
