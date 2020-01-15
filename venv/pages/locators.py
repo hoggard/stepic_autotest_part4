@@ -10,3 +10,11 @@ class LoginPageLocators():
     REGISTER_EMAIL_ADRESS = (By.CSS_SELECTOR, "#id_registration-email")
     REGISTER_PASSWORD = (By.CSS_SELECTOR, "#id_registration-password1")
     REGISTER_CONFIRM_PASSWORD = (By.CSS_SELECTOR, "#id_registration-password2")
+
+class ProductPageLocators():
+    ADD_TO_BASKET = (By.CSS_SELECTOR, "#add_to_basket_form button")
+    PRICE_OF_PRODUCT  = (By.CSS_SELECTOR, "#content_inner article div.row div.col-sm-6.product_main p.price_color")
+    MESSAGE_ABOUT_ADDING = (By.CSS_SELECTOR, "div.alertinner ")
+    PRODUCT_NAME = (By.CSS_SELECTOR, "div.product_main h1")
+    MESSAGE_BASKET_TOTAL = (By.CSS_SELECTOR, ".alert-info .alertinner strong")
+    PRODUCT_PRICE = (By.CSS_SELECTOR, ".product_main .price_color")
