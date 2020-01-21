@@ -1,5 +1,6 @@
 from .base_page import BasePage
 from .locators import LoginPageLocators
+import time
 
 
 class LoginPage(BasePage):
@@ -22,4 +23,13 @@ class LoginPage(BasePage):
         assert self.is_element_present(*LoginPageLocators.REGISTER_EMAIL_ADRESS), "Register Email-adress is not presented"
         assert self.is_element_present(*LoginPageLocators.REGISTER_PASSWORD), "Register Password is not presented"
         assert self.is_element_present(*LoginPageLocators.REGISTER_CONFIRM_PASSWORD), "Confirm Register Password is not presented"
-        
+
+    def register_new_user(email, password):
+        email = str(time.time()) + "@fakemail.org"
+        #password = "abracadabra123"
+        self.is_element_present(*LoginPageLocators.REGISTER_EMAIL_ADRESS).send_keys(email)
+        self.is_element_present(*LoginPageLocators.REGISTER_PASSWORD).send_keys(password)
+        self.is_element_present(*LoginPageLocators.REGISTER_CONFIRM_PASSWORD).send_keys(password)
+        self.is_element_present(*LoginPageLocators.REGISTER_BUTTON).click()
+
+
