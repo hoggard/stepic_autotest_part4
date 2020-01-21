@@ -79,3 +79,6 @@ class BasePage():
     def guest_should_see_empty_basket_message(self):
         empty_basket_message = self.browser.find_element(*BasePageLocators.EMPTY_BASKET_MESSAGE).text
         assert "Your basket is empty." in empty_basket_message, "Empty basket message is abcent"
+        
+    def should_be_authorized_user(self):
+        assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"
