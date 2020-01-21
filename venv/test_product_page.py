@@ -1,4 +1,5 @@
 from .pages.base_page import BasePage
+from .pages.login_page import LoginPage
 from .pages.product_page import ProductPage
 import time
 import pytest
@@ -48,6 +49,7 @@ def test_guest_should_see_login_link_on_product_page(browser):
     page.should_be_login_link()
 
 #6 Тестируем возможность перехода со страницы товара на страницу регистрации
+@pytest.mark.need_review
 def test_guest_can_go_to_login_page_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = ProductPage(browser, link)
@@ -57,6 +59,7 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     login_page.should_be_login_link()
 
 #7 Тестируем переход со страницы товара в корзину
+@pytest.mark.need_review
 def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     link = "http://selenium1py.pythonanywhere.com/en-gb/catalogue/the-city-and-the-stars_95/"
     page = BasePage(browser, link)
@@ -64,3 +67,33 @@ def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
     page.guest_cant_see_product_in_basket_opened_from_another_page()
     page.guest_expect_basket_is_empty()
     page.guest_should_see_empty_basket_message()
+
+@pytest.mark.login
+class TestUserAddToBasketFromProductPage():
+    #8 Тестируем авторизацию нового пользователя
+    @pytest.fixture(scope="function", autouse=True)
+    def setup(self, browser):
+        self.browser = browser
+        link = "http://selenium1py.pythonanywhere.com/en-gb/accounts/login/"
+        page = LoginPage(browser, link)
+        page.open()
+        page.register_new_user("abracadabra123")
+        page.should_be_authorized_user()
+
+    #9 Тестируем, что на странице товара нет сообщения об успешном добавлении после регистрации
+    def test_user_cant_see_success_message(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
+        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page.open()  # открываем страницу товара
+        page.should_not_be_success_message()  # Проверяем, что нет сообщения об успехе
+
+    #10 Тестируем добавление товара в корзину и проверку стоимости корзины после регистрации
+    @pytest.mark.need_review
+    def test_user_can_add_product_to_basket(self, browser):
+        link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer1"
+        page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
+        page.open()  # открываем страницу товара
+        page.add_to_basket()  # выполняем метод страницы - добавляем товар в корзину
+        page.solve_quiz_and_get_code()  # получаем код для скидки
+        page.should_be_message_about_adding()  # проверяем сообщение о добавлении в корзину и название товара
+        page.should_be_message_basket_total()  # проверяем цену за товар и стоимость корзины
