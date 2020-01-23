@@ -1,10 +1,12 @@
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
-import math
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from .locators import BasePageLocators
+from .locators import BasketPageLocators
+import time
+import math
 
 
 class BasePage():
@@ -63,13 +65,15 @@ class BasePage():
         
         
     def guest_cant_see_product_in_basket_opened_from_another_page(self):
-        go_to_basket_link = self.browser.find_element(*BasePageLocators.BASKET_LINK)
+        go_to_basket_link = self.browser.find_element(*BasketPageLocators.BASKET_LINK)
         go_to_basket_link.click()
         current_language = self.browser.execute_script("return window.navigator.userLanguage || window.navigator.language")
         if current_language == "en":
             language = "en-gb"
         else:
             language = current_language
+        print(f'http://selenium1py.pythonanywhere.com/{language}/basket/', "basket-link has wrong url")
+        time.sleep(3)
         assert self.browser.current_url == f'http://selenium1py.pythonanywhere.com/{language}/basket/', "basket-link has wrong url"
 
     def guest_expect_basket_is_empty(self):
@@ -77,7 +81,7 @@ class BasePage():
         assert len(basket_positions) == 0, "basket is not empty"
 
     def guest_should_see_empty_basket_message(self):
-        empty_basket_message = self.browser.find_element(*BasePageLocators.EMPTY_BASKET_MESSAGE).text
+        empty_basket_message = self.browser.find_element(*BasketPageLocators.EMPTY_BASKET_MESSAGE).text
         assert "Your basket is empty." in empty_basket_message, "Empty basket message is abcent"
         
     def should_be_authorized_user(self):
