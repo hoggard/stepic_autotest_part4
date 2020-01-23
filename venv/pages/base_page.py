@@ -75,14 +75,6 @@ class BasePage():
         print(f'http://selenium1py.pythonanywhere.com/{language}/basket/', "basket-link has wrong url")
         time.sleep(3)
         assert self.browser.current_url == f'http://selenium1py.pythonanywhere.com/{language}/basket/', "basket-link has wrong url"
-
-    def guest_expect_basket_is_empty(self):
-        basket_positions = self.browser.find_elements_by_css_selector('#basket_formset div')
-        assert len(basket_positions) == 0, "basket is not empty"
-
-    def guest_should_see_empty_basket_message(self):
-        empty_basket_message = self.browser.find_element(*BasketPageLocators.EMPTY_BASKET_MESSAGE).text
-        assert "Your basket is empty." in empty_basket_message, "Empty basket message is abcent"
-        
+      
     def should_be_authorized_user(self):
         assert self.is_element_present(*BasePageLocators.USER_ICON), "User icon is not presented, probably unauthorised user"
