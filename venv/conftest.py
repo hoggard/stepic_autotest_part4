@@ -15,7 +15,7 @@ def browser(request):
     if browser_name == "chrome":
         options = Options()
         options.add_experimental_option('prefs', {'intl.accept_languages': user_language})
-        options.add_argument('headless')
+        #options.add_argument('headless')
         options.add_argument('window-size=1920x935')
         print("\nstart chrome browser for test..")
         browser = webdriver.Chrome(options=options)
