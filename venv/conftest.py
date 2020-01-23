@@ -29,5 +29,3 @@ def browser(request):
     yield browser
     print("\nquit browser..")
     browser.quit()
-    
-# запускаем тесты: pytest -v --tb=line --language=en test_main_page.py
