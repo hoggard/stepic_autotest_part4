@@ -1,9 +1,11 @@
-from .pages.base_page import BasePage
-from .pages.login_page import LoginPage
-from .pages.product_page import ProductPage
-from .pages.basket_page import BasketPage
+from pages.base_page import BasePage
+from pages.login_page import LoginPage
+from pages.product_page import ProductPage
+from pages.basket_page import BasketPage
 import time
 import pytest
+
+# тесты запускаем так: pytest -v --tb=line --language=en -m need_review test_product_page.py
 
 #1 Тестируем добавление товара в корзину и проверку стоимости корзины (step 4.3.2, 4.3.4)
 @pytest.mark.need_review

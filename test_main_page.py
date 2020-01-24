@@ -1,6 +1,8 @@
-from .pages.main_page import MainPage
-from .pages.login_page import LoginPage
-from .pages.basket_page import BasketPage
+from pages.main_page import MainPage
+from pages.login_page import LoginPage
+from pages.basket_page import BasketPage
+
+# тесты запускаем так: pytest -v --tb=line --language=en -m test_main_page.py
 
 #1 Тестируем возможность перейти на страницу логина (step 4.2.4, 4.2.9)
 def test_guest_can_go_to_login_page(browser):
